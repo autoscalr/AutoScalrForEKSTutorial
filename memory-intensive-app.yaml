@@ -1,0 +1,32 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: memory-intensive-app
+  namespace: kube-public
+  labels:
+    app: memory-intensive-app
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: memory-intensive-app
+  template:
+    metadata:
+      labels:
+        app: memory-intensive-app
+    spec:
+      containers:
+        - image: autoscalr/memorytask:latest
+          name: simapp
+          resources:
+            limits:
+              cpu: 50m
+              memory: 1250Mi
+            requests:
+              cpu: 50m
+              memory: 1250Mi
+          env:
+            - name: AWS_REGION
+              value: us-west-2
+

