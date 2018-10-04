@@ -32,7 +32,7 @@ Tutorial Steps
 Use eksctl (or your preferred toolset) to build a new EKS cluster
 
 ```sh
-$ eksctl create cluster --name=eks-autoscalr --nodes=5 --node-type=m4.large --nodes-min=2 --nodes-max=15 --region=us-west-2
+$ eksctl create cluster --name=eks-autoscalr --nodes=3 --node-type=m4.large --nodes-min=2 --nodes-max=15 --region=us-west-2
 ```
 
 It will take ~15 minutes for the EKS cluster to be initialized, so grab a cup of coffee or check your emails.
@@ -113,7 +113,7 @@ memory-intensive-app   10        10        10           10          49s
   - Deploy AutoScalr to the EKS cluster as described by
 
 ```sh
-$ kubectl apply -f AutoScalr.yaml
+$ kubectl apply -f ~/Downloads/AutoScalr.yaml
 ```
 After 30 seconds to a minute, refresh the AutoScalr UI and the EKS cluster should appear under the Kubernetes section.
 
