@@ -164,7 +164,7 @@ All 12 pods for both deployments are running and available, but lets check what 
 to the cluster to restore the specified spare capacity.
   - Go to your EC2 console in your AWS account and you should see a new instance initializing
   - In the Kubernetes dashboard, go to Nodes, in about 3 minutes, you should see the new node appear
-  - About 30 seconds after showing up, the new node should go to the Ready state
+  - About 30 seconds after showing up, the new node should go to the Ready state  
   - Now simulate another scale out event by changing the deployment targets for both from 13 to 15, and watch the response via kubectl
 ```sh
 $ kubectl --namespace=kube-public get deployments
