@@ -141,21 +141,21 @@ If spare capacity is set correctly, the vast majority of times scaling a deploym
 The new pods should start up in just a few seconds. Then if necessary, in the background AutoScalr replensihes the 
 spare capacity to be ready for other scale out events.
 
-- Change the number of replicas for the memory-intensive-app deployment to 12.
-- Watch the response via kubectl, within a few seconds the AVAILABLE count should reach 12:
+- Change the number of replicas for the memory-intensive-app deployment to 13.
+- Watch the response via kubectl, within a few seconds the AVAILABLE count should reach 13:
 ```sh
 $ kubectl --namespace=kube-public get deployments
 NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 cpu-intensive-app      10        10        10           10          1m
-memory-intensive-app   12        12        12           12          1m
+memory-intensive-app   13        12        13           13          1m
 ```
 
-- Repeat the process for the cpu-intensive-app deployment, changing scale to 12.
+- Repeat the process for the cpu-intensive-app deployment, changing scale to 13.
 ```sh
 $ kubectl --namespace=kube-public get deployments
 NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-cpu-intensive-app      12        12        12           12          1m
-memory-intensive-app   12        12        12           12          1m
+cpu-intensive-app      13        13        13           13          2m
+memory-intensive-app   13        13        13           13          2m
 ```
 
 All 12 pods for both deployments are running and available, but lets check what AutoScalr is doing in the background.
@@ -165,12 +165,12 @@ to the cluster to restore the specified spare capacity.
   - Go to your EC2 console in your AWS account and you should see a new instance initializing
   - In the Kubernetes dashboard, go to Nodes, in about 3 minutes, you should see the new node appear
   - About 30 seconds after showing up, the new node should go to the Ready state
-  - Now simulate another scale out event by changing the deployment targets for both from 12 to 14, and watch the response via kubectl
+  - Now simulate another scale out event by changing the deployment targets for both from 13 to 15, and watch the response via kubectl
 ```sh
 $ kubectl --namespace=kube-public get deployments
 NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-cpu-intensive-app      14        14        14           14          6m
-memory-intensive-app   14        14        14           14          6m
+cpu-intensive-app      15        15        15           15          6m
+memory-intensive-app   15        15        15           15          6m
 ```
 
 #### Scaling Out Beyond Spare Capacity
