@@ -21,10 +21,10 @@ spec:
           name: cpu-intensive-app
           resources:
             limits:
-              cpu: 450m
+              cpu: 445m
               memory: 225Mi
             requests:
-              cpu: 450m
+              cpu: 445m
               memory: 225Mi
           env:
             - name: AWS_REGION
