@@ -8,6 +8,13 @@ but implemented on top of EC2s, so it can be run today before Fargate for EKS is
     - Dynamic Instance Right-Sizing
     - Blended Spot Instance Usage
     
+Video Walk-through
+------------
+
+-	If you want to see AutoScalr for EKS in action, but do not want to go through the entire tutorial, 
+this video shows working through the tutorial and edits out the times waiting for clusters to spin up and
+and autoscaling events.  Plus you can fast forward if you only want to see the end results! 
+-	[AutoScalr for EKS Video](https://youtu.be/LGHBSha-2xo) 
 
 Requirements
 ------------
