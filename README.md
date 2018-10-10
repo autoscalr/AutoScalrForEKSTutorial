@@ -111,17 +111,27 @@ memory-intensive-app   10        10        10           10          49s
   - For a video walk-through of the singup, watch this [AutoScalr Signup Video](https://youtu.be/yxgwUdmmL1I)
 - Select Kubernetes -> Add New
 
-![k8saddnew](https://user-images.githubusercontent.com/32963630/46750212-15971000-cc7d-11e8-94c9-55326cc86026.png)
+  ![k8saddnew](https://user-images.githubusercontent.com/32963630/46750212-15971000-cc7d-11e8-94c9-55326cc86026.png)
+
 - Follow the wizard steps:
   - Select the Region and Auto Scaling Group Name for the worker nodes of the cluster
   - Specify Instance Types of m4.large, c4.large, r4.large
+![settings](https://user-images.githubusercontent.com/32963630/46751684-da96db80-cc80-11e8-8c25-ce3272c3d6bc.png)
+
   - Leave Availability Zones as is
   - Set both Spot Parameter sliders to 0 (we will come back to these later) and click Next
   - Leave the default Scaling parameters, and rename to something simple like AutoScalr-EKS
+![scaling](https://user-images.githubusercontent.com/32963630/46751689-de2a6280-cc80-11e8-9b62-34a5b42854cd.png)
+
   - Update the IAM Role for the worker nodes to allow read access to the Auto Scaling Group as described
     - Update the PolicyTagDiscovery inline policy
+    
+    ![permissions](https://user-images.githubusercontent.com/32963630/46751693-e1255300-cc80-11e8-8620-f591a2bb9ead.png)
+
   - Take the default Kubernetes version (1.10), and download the AutoScalr.yaml generated file that contains
    all the settings you have specified so far.
+![deploy](https://user-images.githubusercontent.com/32963630/46751697-e4204380-cc80-11e8-821a-8f7a9f96f706.png)
+
   - Deploy AutoScalr to the EKS cluster as described by
 
 ```sh
@@ -237,6 +247,8 @@ many EKS clusters.  To reduce the cost of this cluster further:
   all on the application's availablity or performance, and then AutoScalr would 
   replenish the capacity in other spot markets and/or On-Demand instances, as required. 
 
+![costchart](https://user-images.githubusercontent.com/32963630/46750734-3d3aa800-cc7e-11e8-80c2-59d49499c2e8.png)
+
 #### Constrain Specific Deployments to On-Demand
 
 For the majority of deployments, the pods supporting your deployment should be immuatable and you should not care or
@@ -263,7 +275,8 @@ back to Spot instances only if it cannot find room on an On-Demand instance in t
 
 - Go to Nodes in Kubernetes dashboard
 - Note that each node has an autoscalr.com/paymodel label on it
-- Check the ones with the ondemand label, there should be at least one, if not all three of the kubernetes dashboard pods running
+![paymodellabelhlt](https://user-images.githubusercontent.com/32963630/46751181-60b22280-cc7f-11e8-8f66-d82a2a05c5b5.png)
+- Click on the ones with the ondemand label, there should be at least one, if not all three of the kubernetes dashboard pods running
 on ondemand nodes 
 
 ### 8. Dynamic Instance Type Right-Sizing
@@ -293,8 +306,9 @@ NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 cpu-intensive-app       1         1         1            1          35m
 memory-intensive-app   30        30        30           30          35m
 ```
-- Check the INSTANCE TYPE tab and watch as the cluster shifts to more cost effective r4.large instance types
+- Check the INSTANCE TYPE tab and watch as the cluster shifts away from c4.large to more memory cost-effective types r4.large and m4.large instance types
 
+![insttypes](https://user-images.githubusercontent.com/32963630/46750873-9a365e00-cc7e-11e8-9550-9f8afade9118.png)
 ### 9. Play
 
 Change the target replicas on both services in different ways and watch AutoScalr's response to changing the EKS cluster
