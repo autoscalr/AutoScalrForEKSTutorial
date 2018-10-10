@@ -233,6 +233,35 @@ many EKS clusters.  To reduce the cost of this cluster further:
   all on the application's availablity or performance, and then AutoScalr would 
   replenish the capacity in other spot markets and/or On-Demand instances, as required. 
 
+#### Constrain Specific Deployments to On-Demand
+
+For the majority of deployments, the pods supporting your deployment should be immuatable and you should not care or
+even feel if they are moving around the cluster, even on the rare Spot loss occurrence.  But there are some cases where
+you want to constrain or at least put a preference for the pods of a deployment to run on On-Demand instances.
+
+AutoScalr automatically labels each node with a paymodel label that identifies whether the node is Spot or On-Demand, so you can use this label 
+in your deployment spec to achieve the above type of constraints.  The kubernetes-dashboard.yaml file in this repo has an example of this:
+```sh
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: autoscalr.com/paymodel
+                operator: In
+                values:
+                - ondemand
+```
+This tells the Kubernetes scheduler to try to put the pods for this deployment only on On-Demand nodes if it can, and to fall
+back to Spot instances only if it cannot find room on an On-Demand instance in the cluster.
+
+- Go to Nodes in Kubernetes dashboard
+- Note that each node has an autoscalr.com/paymodel label on it
+- Check the ones with the ondemand label, there should be at least one, if not all three of the kubernetes dashboard pods running
+on ondemand nodes 
+
 ### 8. Dynamic Instance Type Right-Sizing
 
 AutoScalr not only makes sure you have enough nodes powering your EKS cluster, and blends in Spot instances to lower cost, 
