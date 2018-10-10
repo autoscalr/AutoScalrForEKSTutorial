@@ -116,21 +116,21 @@ memory-intensive-app   10        10        10           10          49s
 - Follow the wizard steps:
   - Select the Region and Auto Scaling Group Name for the worker nodes of the cluster
   - Specify Instance Types of m4.large, c4.large, r4.large
-![settings](https://user-images.githubusercontent.com/32963630/46751684-da96db80-cc80-11e8-8c25-ce3272c3d6bc.png)
+![settings](https://user-images.githubusercontent.com/32963630/46752142-0cf50880-cc82-11e8-9547-d360826edd6f.png)
 
   - Leave Availability Zones as is
   - Set both Spot Parameter sliders to 0 (we will come back to these later) and click Next
   - Leave the default Scaling parameters, and rename to something simple like AutoScalr-EKS
-![scaling](https://user-images.githubusercontent.com/32963630/46751689-de2a6280-cc80-11e8-9b62-34a5b42854cd.png)
+![scaling](https://user-images.githubusercontent.com/32963630/46752141-0cf50880-cc82-11e8-8811-ca2490df5e93.png)
 
   - Update the IAM Role for the worker nodes to allow read access to the Auto Scaling Group as described
     - Update the PolicyTagDiscovery inline policy
     
-    ![permissions](https://user-images.githubusercontent.com/32963630/46751693-e1255300-cc80-11e8-8620-f591a2bb9ead.png)
+    ![permissions](https://user-images.githubusercontent.com/32963630/46752140-0cf50880-cc82-11e8-87e6-dbd6558d88fd.png)
 
   - Take the default Kubernetes version (1.10), and download the AutoScalr.yaml generated file that contains
    all the settings you have specified so far.
-![deploy](https://user-images.githubusercontent.com/32963630/46751697-e4204380-cc80-11e8-821a-8f7a9f96f706.png)
+![deploy](https://user-images.githubusercontent.com/32963630/46752139-0c5c7200-cc82-11e8-82bb-113d4153b912.png)
 
   - Deploy AutoScalr to the EKS cluster as described by
 
@@ -237,6 +237,9 @@ many EKS clusters.  To reduce the cost of this cluster further:
   - Max spot in 1 market to 25%
   - Max spot in all markets to 90%
   - Save settings
+  
+  ![spotparams](https://user-images.githubusercontent.com/32963630/46752281-63fadd80-cc82-11e8-97f2-a7cfc0db896e.png)
+
 - Go to Metrics page and watch AutoScalr's actions
   - AutoScalr will begin replacing some of the instance with spot instances while following the parameters you specified
   - After ~5-6 minutes the transitions should be complete, go back to the Cost tab and see how the aggregate costs have been 
