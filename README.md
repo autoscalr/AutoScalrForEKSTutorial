@@ -81,6 +81,8 @@ Access the dashboard via the proxy at
 
 You should be able to login by clicking Skip
 
+![screen shot 2018-10-10 at 11 05 51 am](https://user-images.githubusercontent.com/32963630/46749938-7bcf6300-cc7c-11e8-9310-980a9874a7f2.png)
+
 For more options or troubleshooting, see: https://github.com/kubernetes/dashboard/blob/master/README.md
 
 ### 4. Install Example CPU and Memory task deployments
@@ -108,6 +110,8 @@ memory-intensive-app   10        10        10           10          49s
   - or signup for free trial [AutoScalr Free Trial](https://aws.amazon.com/marketplace/pp/B074N1N5QM)
   - For a video walk-through of the singup, watch this [AutoScalr Signup Video](https://youtu.be/yxgwUdmmL1I)
 - Select Kubernetes -> Add New
+
+![k8saddnew](https://user-images.githubusercontent.com/32963630/46750212-15971000-cc7d-11e8-94c9-55326cc86026.png)
 - Follow the wizard steps:
   - Select the Region and Auto Scaling Group Name for the worker nodes of the cluster
   - Specify Instance Types of m4.large, c4.large, r4.large
